@@ -1,24 +1,40 @@
 import 'package:easy_alert/easy_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:startup_namer/examples/http.dart';
+import 'package:startup_namer/examples/jpush_demo.dart';
+import 'package:startup_namer/examples/layout_demo.dart';
 //import 'package:startup_namer/examples/base_widget.dart';
 import 'package:startup_namer/examples/navigator.dart';
+import 'package:startup_namer/examples/shared_preference_demo.dart';
+import 'package:startup_namer/examples/wechat.dart';
 
 void main(){
-  runApp(new AlertProvider(
-    child: new MaterialApp(
-      title: 'Flutter Tutorial',
-      home: new TutorialHome(),
-    ),
-    config: new AlertConfig(
-        ok: "OK text for ok button in AlertDialog",
-        cancel: "CANCEL text for cancel button in AlertDialog"),
-  ));
+//  runApp(new AlertProvider(
+//    child: new MaterialApp(
+//      title: 'Flutter Tutorial',
+//      home: new TutorialHome(),
+//    ),
+//    config: new AlertConfig(
+//        ok: "OK text for ok button in AlertDialog",
+//        cancel: "CANCEL text for cancel button in AlertDialog"),
+//  ));
 
 //  runApp(new MaterialApp(
 //    title: 'Flutter Tutorial',
 //    home: new TutorialHome(),
 //  ));
+
+    runApp(new JpushDemo());
+
+//  runApp(new AlertProvider(
+//    child: new LayoutDemo(),
+//    config: new AlertConfig(
+//      ok: 'OK',
+//      cancel: 'Cancel'
+//    ),
+//  ));
+
 }
 
 //void main() => runApp(Center(child: new MyApp()));
