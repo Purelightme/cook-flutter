@@ -1,7 +1,9 @@
 import 'package:easy_alert/easy_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:startup_namer/examples/common.dart';
 import 'package:startup_namer/examples/http.dart';
+import 'package:startup_namer/examples/image.dart';
 import 'package:startup_namer/examples/jpush_demo.dart';
 import 'package:startup_namer/examples/layout_demo.dart';
 //import 'package:startup_namer/examples/base_widget.dart';
@@ -25,7 +27,7 @@ void main(){
 //    home: new TutorialHome(),
 //  ));
 
-    runApp(new JpushDemo());
+//    runApp(new JpushDemo());
 
 //  runApp(new AlertProvider(
 //    child: new LayoutDemo(),
@@ -35,6 +37,7 @@ void main(){
 //    ),
 //  ));
 
+  runApp(new CommonApp());
 }
 
 //void main() => runApp(Center(child: new MyApp()));
