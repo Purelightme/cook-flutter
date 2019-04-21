@@ -77,6 +77,27 @@ class _FormValidateState extends State<FormValidate> {
                         },
                       ),
                     ),
+
+//                      new RaisedButton(
+//                        padding: EdgeInsets.all(15.0),
+//                        child: Text("登录"),
+//                        color: Theme
+//                            .of(context)
+//                            .primaryColor,
+//                        textColor: Colors.white,
+//                        onPressed: () {
+//                          //在这里不能通过此方式获取FormState，context不对
+//                          //print(Form.of(context));
+//
+//                          // 通过_formKey.currentState 获取FormState后，
+//                          // 调用validate()方法校验用户名密码是否合法，校验
+//                          // 通过后再提交数据。
+//                          if((_formKey.currentState as FormState).validate()){
+//                            //验证通过提交数据
+//                          }
+//                        },
+//                      ),
+
                   ],
                 ),
               )
