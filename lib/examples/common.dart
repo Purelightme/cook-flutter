@@ -14,8 +14,10 @@ import 'package:startup_namer/examples/layout/flex_demo.dart';
 import 'package:startup_namer/examples/layout/stack_demo.dart';
 import 'package:startup_namer/examples/layout/wrap.dart';
 import 'package:startup_namer/examples/navigator/navigator.dart';
+import 'package:startup_namer/examples/plugin_demo/easy_refresh_demo.dart';
 import 'package:startup_namer/examples/plugin_demo/video_player_demo.dart';
 import 'package:startup_namer/examples/scroll_widget/infinite_listview.dart';
+import 'package:startup_namer/examples/scroll_widget/keep_alive.dart';
 import 'package:startup_namer/examples/scroll_widget/single_child_scroll_view.dart';
 import 'package:startup_namer/examples/state_manager/mix.dart';
 import 'package:startup_namer/examples/state_manager/parent.dart';
@@ -27,7 +29,7 @@ class CommonApp extends StatelessWidget{
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(title: Text('导航栏'),),
-        body: new VideoApp(),
+        body: new PhoenixPage(),
       ),
       title: 'TestApp',
       theme: new ThemeData(
