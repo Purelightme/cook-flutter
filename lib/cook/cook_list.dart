@@ -30,6 +30,21 @@ class _CookListState extends State<CookList> {
       "introduction": "盐水牛腱肉属于清爽凉菜，主要原料是牛腱，口味是香，工艺是煮，难度属于中级。"
     },
   ];
+  List<Map<String, dynamic>> cooksAdd = [
+    {
+      "id": 3,
+      "img": "http://f2.mob.com/null/2015/08/19/1439946005521.jpg",
+      "title": "潜江油焖大虾",
+      "introduction":
+      "江汉平原最具人气的菜为油焖大虾，江汉平原油焖大虾是湖北省潜江油焖大虾的发展，潜江油焖大虾起源于湖北潜江市周矶镇，又称广华油焖大虾、五七油焖大虾，近年来在江汉平原声名鹊起，广受食客喜爱。"
+    },
+    {
+      "id": 4,
+      "img": "http://f2.mob.com/null/2015/08/19/1439946002812.jpg",
+      "title": "盐水牛腱肉凉菜",
+      "introduction": "盐水牛腱肉属于清爽凉菜，主要原料是牛腱，口味是香，工艺是煮，难度属于中级。"
+    },
+  ];
 
 //  void initState(){
 //
