@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
 import 'package:flutter_easyrefresh/phoenix_footer.dart';
+import 'package:startup_namer/cook/cook_detail.dart';
 import 'package:toast/toast.dart';
 
 
@@ -57,42 +58,49 @@ class _CookListState extends State<CookList> {
                   return new Container(
                     height: 80,
                     padding: const EdgeInsets.all(3),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: cooks[index]["img"].isEmpty ? Image.asset("images/404.jpg") :
-                                  Image.network(cooks[index]["img"]),
-                          flex: 1,
-                        ),
-                        Expanded(
-                          child: new Container(
-                            padding: const EdgeInsets.only(top: 5),
-                            margin: new EdgeInsets.only(left: 10.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  cooks[index]["title"],
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                ),
-                                Text(
-                                  cooks[index]["introduction"],
-                                  maxLines: 2,
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  style: TextStyle(color: Colors.grey),
-                                ),
-                              ],
-                            ),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context,
+                          new MaterialPageRoute(builder: (context) => new CookDetail(id: cooks[index]['id'].toString(),)),
+                        );
+                      },
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: cooks[index]["img"].isEmpty ? Image.asset("images/404.jpg") :
+                            Image.network(cooks[index]["img"]),
+                            flex: 1,
                           ),
-                          flex: 4,
-                        ),
-                      ],
-                    ),
+                          Expanded(
+                            child: new Container(
+                              padding: const EdgeInsets.only(top: 5),
+                              margin: new EdgeInsets.only(left: 10.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    cooks[index]["title"],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
+                                  Text(
+                                    cooks[index]["introduction"],
+                                    maxLines: 2,
+                                    textAlign: TextAlign.left,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            flex: 4,
+                          ),
+                        ],
+                      ),
+                    )
                   );
                 }),
             onRefresh: () async {
