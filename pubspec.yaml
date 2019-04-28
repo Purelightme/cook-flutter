@@ -32,6 +32,8 @@ dependencies:
   image_picker: ^0.5.4
 #  video_player: ^0.10.0+5
   flutter_easyrefresh: ^1.2.7
+  toast: ^0.1.4
+
 
 
 
@@ -85,3 +87,4 @@ flutter:
   # see https://flutter.io/custom-fonts/#from-packages
   assets:
       - images/lake.jpg
+      - images/404.jpg

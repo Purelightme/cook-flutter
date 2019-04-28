@@ -1,4 +1,4 @@
-import 'package:easy_alert/easy_alert.dart';
+//import 'package:easy_alert/easy_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:startup_namer/examples/common.dart';

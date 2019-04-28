@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/phoenix_header.dart';
 import 'package:flutter_easyrefresh/phoenix_footer.dart';
+import 'package:toast/toast.dart';
+
 
 class CookList extends StatefulWidget {
   CookList({this.id});
@@ -15,36 +19,11 @@ class CookList extends StatefulWidget {
 }
 
 class _CookListState extends State<CookList> {
-  List<Map<String, dynamic>> cooks = [
-    {
-      "id": 3,
-      "img": "http://f2.mob.com/null/2015/08/19/1439946005521.jpg",
-      "title": "潜江油焖大虾",
-      "introduction":
-          "江汉平原最具人气的菜为油焖大虾，江汉平原油焖大虾是湖北省潜江油焖大虾的发展，潜江油焖大虾起源于湖北潜江市周矶镇，又称广华油焖大虾、五七油焖大虾，近年来在江汉平原声名鹊起，广受食客喜爱。"
-    },
-    {
-      "id": 4,
-      "img": "http://f2.mob.com/null/2015/08/19/1439946002812.jpg",
-      "title": "盐水牛腱肉凉菜",
-      "introduction": "盐水牛腱肉属于清爽凉菜，主要原料是牛腱，口味是香，工艺是煮，难度属于中级。"
-    },
-  ];
-  List<Map<String, dynamic>> cooksAdd = [
-    {
-      "id": 3,
-      "img": "http://f2.mob.com/null/2015/08/19/1439946005521.jpg",
-      "title": "潜江油焖大虾",
-      "introduction":
-      "江汉平原最具人气的菜为油焖大虾，江汉平原油焖大虾是湖北省潜江油焖大虾的发展，潜江油焖大虾起源于湖北潜江市周矶镇，又称广华油焖大虾、五七油焖大虾，近年来在江汉平原声名鹊起，广受食客喜爱。"
-    },
-    {
-      "id": 4,
-      "img": "http://f2.mob.com/null/2015/08/19/1439946002812.jpg",
-      "title": "盐水牛腱肉凉菜",
-      "introduction": "盐水牛腱肉属于清爽凉菜，主要原料是牛腱，口味是香，工艺是煮，难度属于中级。"
-    },
-  ];
+
+  num _page = 1; //当前页数
+  int _total = 0; //总数
+
+  List<dynamic> cooks = [];
 
 //  void initState(){
 //
@@ -65,79 +44,99 @@ class _CookListState extends State<CookList> {
       ),
       body: Center(
         child: new EasyRefresh(
-          key: _easyRefreshKey,
-          refreshHeader: PhoenixHeader(
-            key: _headerKey,
-          ),
-          refreshFooter: PhoenixFooter(
-            key: _footerKey,
-          ),
-          child: new ListView.builder(
-              itemCount: cooks.length,
-              itemBuilder: (BuildContext context, int index) {
-                return new Container(
-                  height: 80,
-                  padding: const EdgeInsets.all(3),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Image.network(cooks[index]["img"]),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        child: new Container(
-                          padding: const EdgeInsets.only(top: 5),
-                          margin: new EdgeInsets.only(left: 10.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                cooks[index]["title"],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12
+            key: _easyRefreshKey,
+            refreshHeader: PhoenixHeader(
+              key: _headerKey,
+            ),
+            refreshFooter: PhoenixFooter(
+              key: _footerKey,
+            ),
+            child: new ListView.builder(
+                itemCount: cooks.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return new Container(
+                    height: 80,
+                    padding: const EdgeInsets.all(3),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: cooks[index]["img"].isEmpty ? Image.asset("images/404.jpg") :
+                                  Image.network(cooks[index]["img"]),
+                          flex: 1,
+                        ),
+                        Expanded(
+                          child: new Container(
+                            padding: const EdgeInsets.only(top: 5),
+                            margin: new EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  cooks[index]["title"],
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
-                              ),
-                              Text(
-                                cooks[index]["introduction"],
-                                maxLines: 2,
-                                textAlign: TextAlign.left,
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                style: TextStyle(
-                                  color: Colors.grey
+                                Text(
+                                  cooks[index]["introduction"],
+                                  maxLines: 2,
+                                  textAlign: TextAlign.left,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: TextStyle(color: Colors.grey),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                      ),
-                        flex: 4,
-                      ),
-                    ],
-                  ),
-                );
-              }),
-          onRefresh: () async {
-            await new Future.delayed(const Duration(seconds: 1), () {
-              if (!mounted) return;
-              setState(() {
-                cooks.clear();
-                cooks.addAll(cooksAdd);
-              });
-            });
-          },
-          loadMore: () async {
-            await new Future.delayed(const Duration(seconds: 1), () {
-              if (cooks.length < 20) {
+                          flex: 4,
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+            onRefresh: () async {
+//              await new Future.delayed(const Duration(seconds: 1), () {
+//                if (!mounted) return;
+//                setState(() {
+//                  cooks.clear();
+//                });
+//              });
                 setState(() {
-                  cooks.addAll(cooksAdd);
+                  cooks.clear();
+                  _page = 1;
                 });
-              }
-            });
-          },
-        ),
+            },
+//          loadMore: () async {
+//            await new Future.delayed(const Duration(seconds: 1), () {
+//              if (cooks.length < 20) {
+//                setState(() {
+//                  cooks.addAll(cooksAdd);
+//                });
+//              }
+//            });
+//          },
+            loadMore: () async{
+              Response response = await Dio().get(
+                  "https://weapp.tinali.cn/common/categories/"+widget.id+"/cooks?page="+_page.toString()
+              );
+              var res = response.data;
+//              Map<String,dynamic> res_map = json.decode(res);
+              //print(res["data"]["data"]);
+              this.setState((){
+                if(res["data"]["total"] != cooks.length + res["data"]["data"].length){
+                  _page += 1;
+                  cooks.addAll(res["data"]["data"]);
+                }else{
+                  showToast('暂时就这么多咯~');
+                }
+              });
+            }),
       ),
     );
+  }
+
+  void showToast(String msg, {int duration, int gravity}) {
+    Toast.show(msg, context, duration: duration, gravity: gravity);
   }
 }
